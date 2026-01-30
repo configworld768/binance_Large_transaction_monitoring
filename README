@@ -1,0 +1,80 @@
+🦉 OWL Token Real-time Monitor (OWL 代币实时大单监控)
+这是一个基于 Python 的轻量级加密货币监控脚本，专门用于监控 Binance Web3 (Alpha Market) 中 OWL (ALPHA_556USDT) 代币的实时成交记录。
+它通过连接 WebSocket 接口，实时分析每一笔交易，当监测到连续的大额买单/卖单流时，通过钉钉机器人 (DingTalk) 发送报警通知。
+✨ 主要功能
+实时低延迟: 直接连接 Binance Web3 WSS 接口 (nbstream.binance.com)，毫秒级获取数据。
+智能策略监控:
+连续性检测: 能够识别“连续 N 笔交易均为大单”的异常交易流（通常意味着主力扫货或砸盘）。
+自定义阈值: 可配置单笔数量门槛（如 500k）和连续笔数（如 30笔）。
+钉钉报警: 集成钉钉自定义机器人（支持加签安全设置），第一时间推送到手机。
+防骚扰机制: 内置冷却时间 (Cooldown)，防止行情剧烈波动时消息轰炸。
+🛠️ 安装指南
+1. 环境要求
+Python 3.8 或更高版本
+2. 安装依赖库
+在终端中运行以下命令安装所需的 Python 库：
+pip install websocket-client requests
+
+
+3. 下载代码
+git clone [https://github.com/your-username/owl-monitor.git](https://github.com/your-username/owl-monitor.git)
+cd owl-monitor
+
+
+⚙️ 配置说明
+在使用之前，请打开 monitor_owl.py 文件，并根据你的需求修改顶部的配置区域。
+⚠️ 安全警告: 请勿将包含真实钉钉 ACCESS_TOKEN 和 SECRET 的代码提交到公开的 GitHub 仓库！建议使用环境变量或将配置文件加入 .gitignore。
+核心参数配置
+# --- 报警策略配置 ---
+
+# 单笔数量门槛: 只有大于此数量(OWL)的订单才会被计入
+SINGLE_ORDER_THRESHOLD = 500000 
+
+# 连续笔数门槛: 必须连续出现多少笔大于上述门槛的单子才报警
+# 例如：设置为 30，表示必须连续 30 笔交易都大于 500k 才会触发报警
+CONSECUTIVE_LIMIT = 30
+
+# 报警冷却时间 (秒)，防止满足条件后一直刷屏
+ALERT_COOLDOWN = 60 
+
+
+钉钉机器人配置
+你需要创建一个钉钉群自定义机器人，并开启“加签”安全设置。
+打开钉钉群设置 -> 智能群助手 -> 添加机器人 -> 自定义。
+安全设置选择 “加签” (SEC...)。
+复制机器人的 Webhook 地址中的 access_token 和加签的 Secret。
+# --- 钉钉配置 ---
+DINGTALK_ACCESS_TOKEN = "你的_ACCESS_TOKEN"
+DINGTALK_SECRET = "你的_SEC_开头密钥"
+
+
+🚀 运行脚本
+配置完成后，直接运行脚本即可：
+python monitor_owl.py
+
+
+运行效果
+控制台: 会实时打印每一笔 OWL 交易。如果出现大于阈值的订单，前方会显示 🔥 标记。
+钉钉: 当满足连续大单条件时，你会收到如下通知：
+🚨 OWL 连续大单报警 🚨
+⏱️ 时间: 16:30:45
+🔥 触发条件: 连续 30 笔交易数量 > 500k
+🌊 最新一笔: 523,000 OWL
+💰 当前价格: $0.054321
+💡 提示: 出现连续密集大单，主力正在通过 WSS 频繁成交，建议关注！
+🧠 策略逻辑详解
+本脚本不使用简单的“时间窗口总和”逻辑，而是采用更严格的连续性检测：
+程序维护一个计数器 current_consecutive_count。
+每收到一笔 WebSocket 推送：
+如果 交易数量 > SINGLE_ORDER_THRESHOLD，计数器 +1。
+如果 交易数量 <= SINGLE_ORDER_THRESHOLD，计数器立即归零。
+当计数器达到 CONSECUTIVE_LIMIT (如 30) 时，触发报警。
+为什么这样设计？
+这种策略能有效捕捉高频交易机器人的拆单行为（例如将一个大单拆成几百个 500k 的小单连续买入），这通常是流动性极佳、磨损极小的最佳交易窗口。
+🤝 贡献 (Contributing)
+欢迎提交 Issue 或 Pull Request 来改进代码！
+⚠️ 免责声明 (Disclaimer)
+本工具仅供技术研究和学习使用。
+脚本提供的数据可能存在延迟或误差，不构成任何投资建议。
+加密货币市场风险极高，请自行承担交易风险。
+Created by [Your Name]
