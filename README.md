@@ -28,12 +28,12 @@ pip install websocket-client requests
 
 ### **3\. 下载代码**
 
-git clone \[https://github.com/configworld/[binance_Large_transaction_monitoring](https://github.com/configworld768/binance_Large_transaction_monitoring).git\](https://github.com/configworld/[binance_Large_transaction_monitoring](https://github.com/configworld768/binance_Large_transaction_monitoring).git)  
-cd owl-monitor
+git clone \[https://github.com/configworld/[binance_Large_transaction_monitoring]
+cd binance_Large_transaction_monitoring
 
 ## **⚙️ 配置说明**
 
-在使用之前，请打开 monitor\_owl.py 文件，并根据你的需求修改顶部的配置区域。
+在使用之前，请打开 app.py 文件，并根据你的需求修改顶部的配置区域。
 
 **⚠️ 安全警告**: 请勿将包含真实钉钉 ACCESS\_TOKEN 和 SECRET 的代码提交到公开的 GitHub 仓库！建议使用环境变量或将配置文件加入 .gitignore。
 
@@ -67,7 +67,7 @@ DINGTALK\_SECRET \= "你的\_SEC\_开头密钥"
 
 配置完成后，直接运行脚本即可：
 
-python monitor\_owl.py
+python app.py
 
 ### **运行效果**
 
@@ -84,7 +84,7 @@ python monitor\_owl.py
 
 💰 **当前价格**: $0.054321
 
-💡 **提示**: 出现连续密集大单，主力正在通过 WSS 频繁成交，建议关注！
+💡 **提示**: 出现连续密集大单，主力正在频繁成交，当前适合进行alpah交易！
 
 ## **🧠 策略逻辑详解**
 
