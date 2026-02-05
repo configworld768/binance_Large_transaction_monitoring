@@ -1,6 +1,8 @@
 # **🦉 4倍积分ALPHA Token Real-time Monitor (OWL 代币实时大单监控)**
 ## 本脚本适用于alpha交易赚取空投积分的玩家，实时监测4倍积分的alpah代币的流动性，在流动性比较好的时候告警，以便进行交易，降低交易损耗. ⚠️⚠️⚠️注：流动性充足的时候也是🐶庄砸盘的高峰期
 
+[![视频描述](https://img.youtube.com/vi/8OBEdHj1b5w/0.jpg)](https://www.youtube.com/watch?v=8OBEdHj1b5w)
+
 这是一个基于 Python 的轻量级加密货币监控脚本，专门用于监控 **Binance Web3 (Alpha Market)** 中 **4倍积分的AlPHA (ALPHA\_556USDT)** 代币的实时成交记录。
 
 它通过连接 WebSocket 接口，实时分析每一笔交易，当监测到**连续的大额买单/卖单流**时，通过**钉钉机器人 (DingTalk)** 发送报警通知。
